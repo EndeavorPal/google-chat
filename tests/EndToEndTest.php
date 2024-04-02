@@ -3,6 +3,8 @@
 namespace NotificationChannels\GoogleChat\Tests;
 
 use Illuminate\Support\Facades\Notification;
+use NotificationChannels\GoogleChat\Facades\GoogleChatAlert;
+use NotificationChannels\GoogleChat\GoogleChatMessage;
 use NotificationChannels\GoogleChat\Tests\Fixtures\TestEndToEndNotification;
 
 class EndToEndTest extends TestCase
@@ -134,6 +136,19 @@ class EndToEndTest extends TestCase
     {
         Notification::route('googleChat', env('GOOGLE_CHAT_TEST_SPACE'))
             ->notify($this->notification);
+
+        $this->assertTrue(true);
+    }
+
+    public function test_it_can_send_message_to_google_using_facade()
+    {
+        $message = GoogleChatMessage::create()
+            ->bold('Test Message From GoogleChatAlert Facade')
+            ->line('Another line')
+            ->line('')
+            ->strike('Strike throw text')
+            ->to(env('GOOGLE_CHAT_TEST_SPACE'));
+        GoogleChatAlert::send($message);
 
         $this->assertTrue(true);
     }

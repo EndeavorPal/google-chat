@@ -264,6 +264,24 @@ public function toGoogleChat($notifiable)
 }
 ````
 
+### Google Chat Alert
+Send a Google Chat alert from any part of your application, using `GoogleChatAlert` facade.
+
+````php
+use NotificationChannels\GoogleChat\Facades\GoogleChatAlert;
+use NotificationChannels\GoogleChat\GoogleChatMessage;
+
+
+    $message = GoogleChatMessage::create()
+        ->bold('Heads Up!')
+        ->line('An error was encountered whilst communicating with an external service:')
+        ->monospaceBlock($this->errorMessage)
+        ->italic('Want to know more? ')
+        ->link('https://status.example.com/logs', 'Check Out the Logs.');
+
+    GoogleChatAlert::send($message);
+````
+
 **Visual learner?** Us too. Here's a visual overview of the card structure:
 
 ````

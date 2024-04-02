@@ -29,5 +29,8 @@ class GoogleChatServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(realpath(__DIR__.'/../config/google-chat.php'), 'google-chat');
+        $this->app->bind('google-chat-alerts', function () {
+            return new GoogleChatAlert(new GuzzleClient());
+        });
     }
 }
